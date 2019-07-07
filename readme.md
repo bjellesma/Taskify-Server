@@ -1,0 +1,1 @@
+This is a server for the taskify app meant to handle backend API requests. These API requests will use mongodb for a database.
