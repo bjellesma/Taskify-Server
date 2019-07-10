@@ -1,4 +1,5 @@
-#!/media/bjellz/9C7F83A9E424F69D/Users/Bjellz/Documents/Projects/taskify-server/taskify-server_env/bin/python
+#!/media/bjellz/9C7F83A9E424F69D/Users/Bjellz/Documents/Projects/taskify-server/taskify-server_env/bin/python3
+
 # -*- coding: utf-8 -*-
 import re
 import sys
@@ -6,5 +7,5 @@ import sys
 from flask.cli import main
 
 if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
     sys.exit(main())

@@ -1,5 +1,6 @@
 from flask import Flask, request
 import json
+import settings 
 app = Flask(__name__)
 
 def get_tasks(task_param):
@@ -36,4 +37,5 @@ def get_list_tasks():
     return json.dumps(tasks)
 
 if __name__ == "__main__":
+    print(settings.PORT)
     app.run(host = '0.0.0.0', port = 3001)
