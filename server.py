@@ -1,4 +1,5 @@
 from flask import Flask, request
+import models.mongobase
 import json
 import settings 
 app = Flask(__name__)
