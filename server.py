@@ -2,9 +2,18 @@ from flask import Flask, request
 from models.lists import ListsModel
 import json
 import settings 
+
+#route imports
+from routes.api import api_routes
+
 app = Flask(__name__)
+app.register_blueprint(api_routes)
 
 def get_tasks(task_param):
+    """
+    # TODO temp
+    all hardcoded tasks for testing
+    """
     tasks = []
     task_list = [
         {
@@ -29,14 +38,7 @@ def get_tasks(task_param):
             tasks.append(task)
     return tasks
 
-@app.route("/api/getlisttasks", methods=["GET"])
-def get_list_tasks():
-    list_name = request.args.get('list')
-    # TODO get tasks with the list name from mongo
-    # For now, we are hardcoding the values
-    # tasks = get_tasks(list_name)
-    return json.dumps(tasks)
+
 
 if __name__ == "__main__":
-    print(f'lists: {ListsModel().read_lists()}')
     app.run(host = '0.0.0.0', port = 3001)

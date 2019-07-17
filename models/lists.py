@@ -7,6 +7,17 @@ class ListsModel():
         """
         read entire lists collection
         """
+        values = []
         lists_collection = taskify['lists']
-        return lists_collection.find_one()
+        records = lists_collection.find()
+        for record in records:
+            values.append(
+                dict(
+                    uid = str(record["_id"]),
+                    name = record["name"]
+                )
+            )
+        return values
+        
+
 
