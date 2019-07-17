@@ -1,5 +1,5 @@
 from flask import Flask, request
-import models.mongobase
+from models.lists import ListsModel
 import json
 import settings 
 app = Flask(__name__)
@@ -34,9 +34,9 @@ def get_list_tasks():
     list_name = request.args.get('list')
     # TODO get tasks with the list name from mongo
     # For now, we are hardcoding the values
-    tasks = get_tasks(list_name)
+    # tasks = get_tasks(list_name)
     return json.dumps(tasks)
 
 if __name__ == "__main__":
-    print(settings.PORT)
+    print(f'lists: {ListsModel().read_lists()}')
     app.run(host = '0.0.0.0', port = 3001)
