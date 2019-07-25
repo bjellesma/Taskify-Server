@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
 from models.lists import ListsModel
 import json
 import settings 
@@ -7,7 +8,9 @@ import settings
 from routes.api import api_routes
 
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.register_blueprint(api_routes)
+cors = CORS(app)
 
 def get_tasks(task_param):
     """

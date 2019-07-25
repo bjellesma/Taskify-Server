@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request
+from flask_cors import CORS, cross_origin
 import json
 
 # app imports
@@ -30,3 +31,20 @@ def get_list_tasks():
     # tasks = get_tasks(list_name)
     
     return response
+
+@api_routes.route("/api/addtask", methods=["POST"])
+@cross_origin()
+def add_task():
+    # The data is sent as a json object
+    data = request.get_json(silent=True)
+    title = data["title"]
+    completed = data["title"]
+    list_id = data["list_id"]
+    task, task_id = TasksModel.add_task(title, completed, list_id)
+    task = {
+        "uid": str(task_id),
+        "title": str(task["title"]),
+        "completed": str(task["completed"])
+
+    }
+    return json.dumps(task)

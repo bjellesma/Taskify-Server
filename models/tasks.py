@@ -15,7 +15,27 @@ class TasksModel():
             values.append(
                 dict(
                     uid = str(record["_id"]),
-                    name = record["name"]
+                    title = record["title"],
+                    completed = record["completed"]
                 )
             )
         return values
+
+    @classmethod
+    def add_task(
+        cls,
+        title,
+        completed,
+        list_id
+    ):
+        """
+        add task through pymongo
+        """
+        tasks_collection = taskify['tasks']
+        task = {
+            "title": title,
+            "completed": completed,
+            "list_id": ObjectId(list_id)
+        }
+        task_id = tasks_collection.insert_one(task).inserted_id
+        return task, task_id
