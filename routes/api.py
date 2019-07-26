@@ -38,13 +38,26 @@ def add_task():
     # The data is sent as a json object
     data = request.get_json(silent=True)
     title = data["title"]
-    completed = data["title"]
+    completed = data["completed"]
     list_id = data["list_id"]
     task, task_id = TasksModel.add_task(title, completed, list_id)
     task = {
         "uid": str(task_id),
         "title": str(task["title"]),
-        "completed": str(task["completed"])
+        "completed": task["completed"]
 
     }
     return json.dumps(task)
+
+@api_routes.route("/api/updatetaskcomplete", methods=["PUT"])
+@cross_origin()
+def update_task():
+    data = request.get_json(silent=True)
+    task_id = data["task_id"]
+    completed = data["completed"]
+    print(f'id: {task_id}\ncompleted: {completed}')
+    result = TasksModel.update_task_complete(
+        task_id=task_id,
+        completed=completed
+    )
+    return ''
