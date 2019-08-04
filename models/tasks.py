@@ -46,10 +46,14 @@ class TasksModel():
         task_id,
         completed
     ):
-        tasks_collection = taskify['tasks']
         """
         Update complete status on task
+
+        ! test comment
+        :param: task_id
         """
+        tasks_collection = taskify['tasks']
+        
         query = {'_id': ObjectId(task_id)}
         params = { "$set": {'completed': completed}}
         print(f'query: {query}\nParams: {params}')
