@@ -3,14 +3,14 @@ import os
 
 load_dotenv()
 
-TEST_VALUE = os.getenv("TEST")
-PORT = os.getenv("PORT")
+TEST_VALUE = os.environ["TEST"]
+PORT = os.environ["PORT"]
 DBTYPE = os.environ["DBTYPE"]
-DBUSER = os.getenv("DBUSER")
-DBPASSWORD = os.getenv("DBPASSWORD")
-DBHOST = os.getenv("DBHOST")
-DBPORT = os.getenv("DBPORT")
-DBNAME = os.getenv("DBNAME")
+DBUSER = os.environ["DBUSER"]
+DBPASSWORD = os.environ["DBPASSWORD"]
+DBHOST = os.environ["DBHOST"]
+DBPORT = os.environ["DBPORT"]
+DBNAME = os.environ["DBNAME"]
 
 class ColorMessages:
     HEADER = '\033[95m'
