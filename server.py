@@ -44,6 +44,5 @@ def get_tasks(task_param):
 
 
 if __name__ == "__main__":
-    print('hello world')
     app.run(host = '0.0.0.0', port = 3001)
     
