@@ -18,7 +18,7 @@ connect_string = f'{database_type}://{database_user}:{database_password}@{databa
 try:
     database_client = pymongo.MongoClient(connect_string, serverSelectionTimeoutMS=3000)
 except Exception as error:
-    print(f'{ColorMessages.FAIL}Invalid connect string{ColorMessages.ENDC}')
+    print(f'{ColorMessages.FAIL}Invalid connect string: {connect_string}{ColorMessages.ENDC}')
 try:
     # an error will be thrown if we can't get the server info
     database_client.server_info()
