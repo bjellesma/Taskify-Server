@@ -15,7 +15,10 @@ database_name = settings.DBNAME
 # Connect to database
 connect_string = f'{database_type}://{database_user}:{database_password}@{database_host}:{database_port}/{database_name}'
 # We try to connect to the database
-database_client = pymongo.MongoClient(connect_string, serverSelectionTimeoutMS=3000)
+try:
+    database_client = pymongo.MongoClient(connect_string, serverSelectionTimeoutMS=3000)
+except Exception as error:
+    print(f'Invalid connect string: {connect_string}')
 try:
     # an error will be thrown if we can't get the server info
     database_client.server_info()
