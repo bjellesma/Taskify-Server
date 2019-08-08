@@ -3,7 +3,6 @@ import os
 
 load_dotenv()
 
-TEST_VALUE = os.environ["TEST"]
 PORT = os.environ["PORT"]
 DBTYPE = os.environ["DBTYPE"]
 DBUSER = os.environ["DBUSER"]
