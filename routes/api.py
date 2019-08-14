@@ -23,6 +23,9 @@ def get_lists():
 def get_list_tasks():
     # id will be the id of the list
     lid = request.args.get('id')
+    if not lid:
+        # if no list id was specified
+        TasksModel.get_tasks()
     tasks = TasksModel.get_tasks_by_id(lid)
     response = jsonify(tasks)
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -61,3 +64,16 @@ def update_task():
         completed=completed
     )
     return ''
+
+@api_routes.route("/login", methods=["POST"])
+@cross_origin()
+def login():
+    data = request.get_json(silent=True)
+    email = data["email"]
+    password = data["password"]
+    token = 3
+    user = 4
+    return {
+        "token": token,
+        "user": user
+    }
