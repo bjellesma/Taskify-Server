@@ -9,7 +9,6 @@ from app import app
 login_routes = Blueprint('login_routes', __name__)
 
 @login_routes.route("/login", methods=["POST"])
-@cross_origin(origin='*',headers=['Access-Control-Allow-Origin','*'])
 def login():
     
     data = request.get_json(silent=True)
@@ -22,7 +21,8 @@ def login():
     )
     if not user:
         return jsonify({'message': 'Invalid Credentials', 'authenticated': False})
-    response = {
+    response = jsonify(
+        {
         "token": jwt.encode(
             {
                 'sub': user['email'],
@@ -37,6 +37,7 @@ def login():
             "email": user['email']
         },
         'authenticated': 'true'
-    }
-    #response.headers.add('Access-Control-Allow-Origin', '*')
+        }
+    )
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
