@@ -9,7 +9,7 @@ from app import app
 login_routes = Blueprint('login_routes', __name__)
 
 @login_routes.route("/login", methods=["POST"])
-@cross_origin(origin='*',headers=['Content-Type','Authorization'])
+@cross_origin(origin='*',headers=['Access-Control-Allow-Origin','*'])
 def login():
     
     data = request.get_json(silent=True)
