@@ -64,16 +64,3 @@ def update_task():
         completed=completed
     )
     return ''
-
-@api_routes.route("/login", methods=["POST"])
-@cross_origin()
-def login():
-    data = request.get_json(silent=True)
-    email = data["email"]
-    password = data["password"]
-    token = 3
-    user = 4
-    return {
-        "token": token,
-        "user": user
-    }
