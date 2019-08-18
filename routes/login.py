@@ -11,6 +11,7 @@ login_routes = Blueprint('login_routes', __name__)
 @login_routes.route("/login", methods=["POST"])
 @cross_origin()
 def login():
+    
     data = request.get_json(silent=True)
     email = data["email"]
     password = data["password"]
@@ -21,7 +22,7 @@ def login():
     )
     if not user:
         return jsonify({'message': 'Invalid Credentials', 'authenticated': False})
-    return {
+    response = {
         "token": jwt.encode(
             {
                 'sub': user['email'],
@@ -37,3 +38,5 @@ def login():
         },
         'authenticated': 'true'
     }
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
