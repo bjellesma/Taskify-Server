@@ -4,13 +4,33 @@ from bson import ObjectId
 class TasksModel():
 
     @classmethod
-    def get_tasks_by_id(cls, lid):
+    def get_tasks_by_id(cls, lid, limit):
         """
         read entire lists collection
         """
         values = []
         tasks_collection = taskify['tasks']
-        records = tasks_collection.find({'list_id':ObjectId(lid)})
+        if limit:
+            try:
+                limit = int(limit)
+            except Exception as err:
+                print(f'error: {err}')
+            records = tasks_collection.find(
+                {
+                    'list_id':ObjectId(lid)
+                }
+            ).limit(limit)
+        else:
+            records = tasks_collection.find(
+                {
+                    'list_id':ObjectId(lid)
+                }
+            )
+        records = tasks_collection.find(
+            {
+                'list_id':ObjectId(lid)
+            }
+        ).limit(limit)
         for record in records:
             values.append(
                 dict(

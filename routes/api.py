@@ -9,24 +9,33 @@ from models.tasks import TasksModel
 api_routes = Blueprint('api_routes', __name__)
 
 @api_routes.route("/api/getlists", methods = ["GET"])
-def get_lists():
+def get_lists(
+    limit=None
+):
     """
     Get all lists
     """
-    lists = ListsModel().read_lists()
+    limit = request.args.get('limit')
+    lists = ListsModel().read_lists(
+        limit=limit
+    )
     response = jsonify(lists)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
 @api_routes.route("/api/gettasks", methods=["GET"])
-def get_list_tasks():
+def get_list_tasks(
+    limit=None
+):
     # id will be the id of the list
     lid = request.args.get('id')
+    limit = request.args.get('limit')
+    print(f'limit: {limit}')
     if not lid:
         # if no list id was specified
         TasksModel.get_tasks()
-    tasks = TasksModel.get_tasks_by_id(lid)
+    tasks = TasksModel.get_tasks_by_id(lid, limit)
     response = jsonify(tasks)
     response.headers.add('Access-Control-Allow-Origin', '*')
     # TODO get tasks with the list name from mongo
@@ -64,3 +73,17 @@ def update_task():
         completed=completed
     )
     return ''
+
+@api_routes.route("/api/addlist", methods=["POST"])
+@cross_origin()
+def add_list():
+    # The data is sent as a json object
+    data = request.get_json(silent=True)
+    name = data["name"]
+    user_id = data["user_id"]
+    new_list, list_id = ListsModel.add_list(name, user_id)
+    new_list = {
+        "uid": str(list_id),
+        "name": str(new_list["name"])
+    }
+    return json.dumps(new_list)

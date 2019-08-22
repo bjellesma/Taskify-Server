@@ -15,4 +15,4 @@ This is a server for the taskify app meant to handle backend API requests. These
 ## Push to Heroku
 
 1. `heroku login`
-2. `sudo git push heroku master`
+2. `sudo git push origin master`
