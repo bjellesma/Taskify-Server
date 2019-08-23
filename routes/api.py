@@ -8,6 +8,19 @@ from models.tasks import TasksModel
 
 api_routes = Blueprint('api_routes', __name__)
 
+@api_routes.route("/api/getlist", methods = ["GET"])
+def get_list():
+    """
+    Get list by id
+    """
+    lid = request.args.get('id')
+    rlist = ListsModel().read_list(
+        lid=lid
+    )
+    response = jsonify(rlist)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 @api_routes.route("/api/getlists", methods = ["GET"])
 def get_lists(
     limit=None
@@ -67,7 +80,6 @@ def update_task():
     data = request.get_json(silent=True)
     task_id = data["task_id"]
     completed = data["completed"]
-    print(f'id: {task_id}\ncompleted: {completed}')
     result = TasksModel.update_task_complete(
         task_id=task_id,
         completed=completed

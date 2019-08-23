@@ -21,6 +21,26 @@ class ListsModel():
         return new_list, list_id
 
     @classmethod
+    def read_list(cls, lid):
+        """
+        read specified list
+        """
+        values = []
+        lists_collection = taskify['lists']
+
+        record = lists_collection.find_one(
+                {
+                    '_id':ObjectId(lid)
+                }
+            )
+        values = dict(
+                uid = str(record["_id"]),
+                name = record["name"],
+                user_id = str(record["user_id"])
+            )
+        return values
+
+    @classmethod
     def read_lists(cls, limit):
         """
         read entire lists collection
