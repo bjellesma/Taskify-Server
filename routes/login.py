@@ -41,3 +41,27 @@ def login():
     )
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+@login_routes.route("/register", methods=["POST"])
+def register():
+    data = request.get_json(silent=True)
+    username = data["username"]
+    email = data["email"]
+    password = data["password"]
+    password_confirmation = data["password_confirmation"]
+
+    # Check that user doesn't exist already
+    if UsersModel.check_user(email):
+        return jsonify({'message': 'A user with that email already exists', 'authenticated': False})
+
+    # Check password confirmation
+    if password!=password_confirmation:
+        return jsonify({'message': 'Password not equal to password confirmation', 'authenticated': False})
+
+    return UsersModel.register(
+        username=username,
+        email=email,
+        password=password
+    )
+
+    

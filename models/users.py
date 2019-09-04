@@ -7,11 +7,38 @@ class UsersModel():
 
     users_collection = taskify['users']
 
+    @classmethod
+    def check_user(cls, email):
+        """
+        Check if the user's email already exists in the database
+        """
+        user = cls.users_collection.find_one(
+            {
+                'email':email
+            }
+        )
+        if not user:
+            return True
+        return False
+
+    @classmethod
     def register(cls, **kwargs):
+        """
+        Register user and insert into database
+        """
+        username = kwargs.get('username')
         email = kwargs.get('email')
         password = kwargs.get('password')
         # Create password hash
         password = generate_password_hash(password, method='sha256')
+        lists_collection = taskify['lists']
+        new_user = {
+            "username": username,
+            "email": email,
+            "password": password
+        }
+        user_id = cls.users_collection.insert_one(new_user).inserted_id
+        return user_id
 
     @classmethod
     def authenticate(cls, **kwargs):
