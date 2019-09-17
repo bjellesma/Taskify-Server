@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify, request
+from flask import session as login_session
+from flask import Flask, Blueprint, jsonify, request
 from flask_cors import CORS, cross_origin
 import json
 
@@ -28,8 +29,10 @@ def get_lists(
     """
     Get all lists
     """
+    user_id = request.headers.get('user_id')
     limit = request.args.get('limit')
     lists = ListsModel().read_lists(
+        uid=user_id,
         limit=limit
     )
     response = jsonify(lists)

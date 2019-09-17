@@ -1,0 +1,21 @@
+{
+  "name": "taskify-server",
+  "version": "1.0.0",
+  "description": "This is a server for the taskify app meant to handle backend API requests. These API requests will use mongodb for a database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "python3.7 server.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjellesma/taskify-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bjellesma/taskify-server/issues"
+  },
+  "homepage": "https://github.com/bjellesma/taskify-server#readme"
+}

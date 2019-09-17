@@ -11,6 +11,8 @@ class UsersModel():
     def check_user(cls, email):
         """
         Check if the user's email already exists in the database
+        return true if there is no user
+        return false if there is an existing user
         """
         user = cls.users_collection.find_one(
             {
@@ -37,8 +39,13 @@ class UsersModel():
             "email": email,
             "password": password
         }
+        # seperate user object so that we don't expose the password
+        user = {
+            "username": username,
+            "email": email
+        }
         user_id = cls.users_collection.insert_one(new_user).inserted_id
-        return user_id
+        return user, user_id
 
     @classmethod
     def authenticate(cls, **kwargs):

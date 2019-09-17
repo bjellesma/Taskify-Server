@@ -41,7 +41,7 @@ class ListsModel():
         return values
 
     @classmethod
-    def read_lists(cls, limit):
+    def read_lists(cls, uid, limit):
         """
         read entire lists collection
         """
@@ -52,14 +52,23 @@ class ListsModel():
                 limit = int(limit)
             except Exception as err:
                 print(f'error: {err}')
-            records = lists_collection.find().limit(limit)
+            records = lists_collection.find(
+                {
+                    'user_id':ObjectId(uid)
+                }
+            ).limit(limit)
         else:
-            records = lists_collection.find()
+            records = lists_collection.find(
+                {
+                    'user_id':ObjectId(uid)
+                }
+            )
         for record in records:
             values.append(
                 dict(
                     uid = str(record["_id"]),
-                    name = record["name"]
+                    name = record["name"],
+                    user_id = str(record["user_id"])
                 )
             )
         return values
